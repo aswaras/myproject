@@ -1,0 +1,230 @@
+<!-- ... existing code ... -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myproject. - Desain, Kode & AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Menggunakan font bergaya desainer: Outfit untuk heading, Inter untuk teks, dan JetBrains Mono untuk coding vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'stone-50': '#fafaf9',
+                        'accent': '#ff5a5f', // Warna aksen yang berani
+                        'ai-glow': '#8b5cf6', // Warna ungu futuristik untuk AI
+                    }
+                }
+            }
+        }
+    </script>
+<!-- ... existing code ... -->
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-stone-50/90 backdrop-blur-md z-50 py-5 transition-all">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="#" class="font-display text-2xl font-bold tracking-tighter text-gray-900">
+                myproject<span class="text-accent">.</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase text-gray-500">
+                <a href="#karya" class="hover:text-gray-900 transition">Karya Visual</a>
+                <a href="#lab-kode" class="hover:text-gray-900 transition">Coding Vibe</a>
+                <a href="#tren-ai" class="hover:text-ai-glow transition drop-shadow-sm">Sinergi AI</a>
+                <a href="#tentang" class="hover:text-gray-900 transition">Profil</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 md:pt-56 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center">
+        <div class="max-w-4xl">
+            <p class="text-accent font-medium mb-4 tracking-widest uppercase text-sm font-mono">&gt; print("Hello, World!");</p>
+            <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.1] text-gray-900 mb-8 tracking-tight">
+                Estetika Visual. <br>
+                <span class="text-gray-400 font-light">Eksperimen Kode & AI.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-500 font-light max-w-2xl leading-relaxed mb-12">
+                Saya <strong>myproject</strong>. Seorang Desainer UI/UX yang mengubah ide menjadi antarmuka elegan, menulis baris kode di akhir pekan, dan mengadaptasi AI untuk alur kerja masa depan.
+            </p>
+            <div class="flex items-center space-x-6">
+                <a href="#tren-ai" class="px-8 py-4 bg-gray-900 text-white rounded-full hover:bg-ai-glow transition duration-300 font-medium flex items-center gap-2">
+                    <i class="fas fa-sparkles"></i> Eksplorasi Sekarang
+                </a>
+<!-- ... existing code ... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Coding Projects / Vercel Section -->
+    <section id="lab-kode" class="py-24 px-6 md:px-12 bg-gray-950 text-gray-300 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div class="max-w-3xl">
+                    <h2 class="font-display text-4xl font-bold mb-4 text-white"><span class="text-accent">~/</span> Coding Vibe & Deployments</h2>
+                    <p class="text-gray-400 text-lg">
+                        Meskipun <i>passion</i> utama saya di ranah visual, saya suka mengotori tangan dengan <code class="font-mono text-sm bg-gray-800 px-2 py-1 rounded text-accent">HTML/CSS/JS</code>. Ini adalah <i>playground</i> tempat desain statis menjadi prototipe hidup, didukung oleh infrastruktur Vercel.
+                    </p>
+                </div>
+                <div class="mt-6 md:mt-0 flex flex-col items-end">
+                    <div class="flex items-center gap-2 text-gray-500 font-mono text-sm mb-2">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        Status: Online
+                    </div>
+                    <i class="fas fa-terminal text-5xl text-gray-800"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
+                <!-- Vercel Project 1 -->
+                <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-gray-600 transition group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+<!-- ... existing code ... -->
+                    <div class="flex gap-2 mb-6 text-xs text-gray-400">
+                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">HTML5</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Tailwind</span>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-accent transition">
+                        [Deploy on Vercel] <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Vercel Project 2 -->
+                <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-gray-600 transition group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-12 h-12 bg-gray-950 rounded border border-gray-800 flex items-center justify-center mb-6 text-gray-300 group-hover:text-white transition">
+                        <i class="fab fa-css3-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">CSS_Art_Lab</h3>
+                    <p class="text-gray-500 text-sm mb-6 line-clamp-3 font-sans">
+                        Kumpulan eksperimen CSS dasar untuk membuat interaksi tombol dan animasi sederhana tanpa banyak Javascript.
+                    </p>
+                    <div class="flex gap-2 mb-6 text-xs text-gray-400">
+                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">CSS3</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Keyframes</span>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-accent transition">
+                        [Deploy on Vercel] <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Vercel Project 3 -->
+                <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-gray-600 transition group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-12 h-12 bg-gray-950 rounded border border-gray-800 flex items-center justify-center mb-6 text-gray-300 group-hover:text-white transition">
+                        <i class="fas fa-network-wired text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">myproject_links</h3>
+                    <p class="text-gray-500 text-sm mb-6 line-clamp-3 font-sans">
+                        Halaman profil sederhana yang di-coding dari nol, dioptimasi kecepatannya dan terintegrasi CI/CD dari GitHub ke Vercel.
+                    </p>
+                    <div class="flex gap-2 mb-6 text-xs text-gray-400">
+                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Git</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Vercel</span>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-accent transition">
+                        [Deploy on Vercel] <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Trend / Explorations Section -->
+    <section id="tren-ai" class="py-24 px-6 md:px-12 bg-[#0a0a0f] text-white relative overflow-hidden">
+        <!-- Dekorasi latar belakang (Efek AI Glow) -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-ai-glow/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="mb-16 text-center max-w-3xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-ai-glow text-sm font-medium mb-6">
+                    <i class="fas fa-robot"></i> Mengikuti Tren Era Baru
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Desain Diberdayakan oleh AI.</h2>
+                <p class="text-gray-400 text-lg">
+                    AI bukan untuk menggantikan kreativitas, melainkan untuk memperkuatnya. Saya secara aktif mengintegrasikan alat kecerdasan buatan dalam alur kerja untuk riset, ideasi visual, dan mempercepat proses iterasi desain.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- AI Feature 1 -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition">
+                    <div class="text-ai-glow text-3xl mb-4"><i class="fas fa-brain"></i></div>
+                    <h3 class="text-xl font-bold mb-3 font-display">Prompt Engineering</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Menggunakan Midjourney dan DALL-E untuk menciptakan <i>moodboard</i> instan dan eksplorasi konsep visual abstrak sebelum memulai desain UI yang sebenarnya di Figma.
+                    </p>
+                </div>
+                
+                <!-- AI Feature 2 -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition">
+                    <div class="text-ai-glow text-3xl mb-4"><i class="fas fa-bolt"></i></div>
+                    <h3 class="text-xl font-bold mb-3 font-display">Kopilot Kode & Naskah</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Memanfaatkan ChatGPT & Claude untuk menghasilkan <i>dummy copy</i> yang kontekstual (bukan sekadar Lorem Ipsum) dan membantu melakukan <i>troubleshooting</i> kode HTML/CSS saat mengembangkan proyek di Vercel.
+                    </p>
+                </div>
+
+                <!-- AI Feature 3 -->
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition lg:mt-8">
+                    <div class="text-ai-glow text-3xl mb-4"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="text-xl font-bold mb-3 font-display">Integrasi AI di UI</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Mempelajari tren interaksi masa depan—bagaimana mendesain antarmuka untuk <i>chatbot</i>, pengalaman generatif, dan pola UX (User Experience) yang berpusat pada asisten pintar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Skills Section -->
+    <section id="tentang" class="py-24 px-6 md:px-12 bg-stone-50">
+<!-- ... existing code ... -->
+                <div class="mb-8">
+                    <h4 class="text-sm uppercase tracking-widest text-gray-400 font-semibold mb-4">Hobi Web Development</h4>
+                    <div class="flex flex-wrap gap-3 font-mono text-sm">
+                        <span class="px-4 py-2 bg-gray-900 text-white rounded border border-gray-700 shadow-sm">&lt;HTML5/CSS3&gt;</span>
+                        <span class="px-4 py-2 bg-gray-900 text-white rounded border border-gray-700 shadow-sm">Tailwind</span>
+                        <span class="px-4 py-2 bg-gray-900 text-white rounded border border-gray-700 shadow-sm">JS_Basic()</span>
+                        <span class="px-4 py-2 bg-gray-900 text-accent rounded border border-gray-700 shadow-sm">▲ Vercel</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-sm uppercase tracking-widest text-gray-400 font-semibold mb-4 flex items-center gap-2">
+                        <i class="fas fa-sparkles text-ai-glow"></i> Eksplorasi AI
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-900 rounded-full font-medium shadow-sm">Midjourney (Ideation)</span>
+                        <span class="px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-900 rounded-full font-medium shadow-sm">ChatGPT / Claude</span>
+                        <span class="px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-900 rounded-full font-medium shadow-sm">AI Prompting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+<!-- ... existing code ... -->
+            <p class="text-xl text-gray-500 mb-10">Mencari desainer yang memahami batasan kode dan antusias dengan masa depan AI? Kotak masuk saya selalu terbuka.</p>
+            
+            <a href="mailto:email@anda.com" class="inline-block text-2xl md:text-4xl font-display font-bold border-b-4 border-accent pb-2 hover:text-accent transition duration-300 mb-16">
+                halo@myproject.com
+            </a>
+
+            <div class="flex justify-center space-x-8 text-gray-400 mb-16">
+<!-- ... existing code ... -->
+            <p class="text-sm text-gray-400 font-mono">
+                &copy; 2026 myproject. Didesain oleh manusia, di-code dengan Tailwind, di-host di Vercel.
+            </p>
+        </div>
+    </section>
+
+</body>
+</html>
