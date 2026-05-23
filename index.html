@@ -1,230 +1,802 @@
-<!-- ... existing code ... -->
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myproject. - Desain, Kode & AI</title>
+    <title>Aswaracca | UI/UX & Graphic Designer</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Menggunakan font bergaya desainer: Outfit untuk heading, Inter untuk teks, dan JetBrains Mono untuk coding vibe -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        'stone-50': '#fafaf9',
-                        'accent': '#ff5a5f', // Warna aksen yang berani
-                        'ai-glow': '#8b5cf6', // Warna ungu futuristik untuk AI
+                        'primary': '#0f172a', // Slate 900
+                        'secondary': '#3b82f6', // Blue 500
+                        'accent': '#8b5cf6', // Violet 500
+                        'light': '#f8fafc',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
         }
     </script>
-<!-- ... existing code ... -->
+
+    <style>
+        /* Custom Styles for Interactive Elements */
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.3); /* Accent color border on hover */
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hero Canvas background */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Reveal Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #8b5cf6;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        /* Hide default cursor on desktop */
+        @media (min-width: 768px) {
+            body {
+                cursor: none;
+            }
+            a, button, input, textarea {
+                cursor: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-accent selection:text-white relative">
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
     <!-- Navigation -->
-    <nav class="fixed w-full bg-stone-50/90 backdrop-blur-md z-50 py-5 transition-all">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="#" class="font-display text-2xl font-bold tracking-tighter text-gray-900">
-                myproject<span class="text-accent">.</span>
-            </a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase text-gray-500">
-                <a href="#karya" class="hover:text-gray-900 transition">Karya Visual</a>
-                <a href="#lab-kode" class="hover:text-gray-900 transition">Coding Vibe</a>
-                <a href="#tren-ai" class="hover:text-ai-glow transition drop-shadow-sm">Sinergi AI</a>
-                <a href="#tentang" class="hover:text-gray-900 transition">Profil</a>
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold tracking-tighter text-white hover:text-accent transition-colors">
+                        aswaracca<span class="text-accent">.</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-accent text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Beranda</a>
+                        <a href="#about" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Tentang</a>
+                        <a href="#portfolio" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Karya</a>
+                        <a href="#wawasan" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Wawasan AI</a>
+                        <a href="#contact" class="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-accent/30">Hubungi Saya</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-nav absolute w-full border-t border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Beranda</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Tentang</a>
+                <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Karya</a>
+                <a href="#wawasan" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Wawasan AI</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-accent hover:text-white hover:bg-gray-800">Hubungi Saya</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-40 pb-20 md:pt-56 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center">
-        <div class="max-w-4xl">
-            <p class="text-accent font-medium mb-4 tracking-widest uppercase text-sm font-mono">&gt; print("Hello, World!");</p>
-            <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.1] text-gray-900 mb-8 tracking-tight">
-                Estetika Visual. <br>
-                <span class="text-gray-400 font-light">Eksperimen Kode & AI.</span>
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Interactive Canvas Background -->
+        <canvas id="hero-canvas"></canvas>
+        
+        <!-- Abstract CSS Blobs -->
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <p class="text-secondary font-semibold tracking-wide uppercase mb-3 animate-fade-in-up" style="animation-delay: 0.1s;">Halo, Saya Aswaracca</p>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in-up" style="animation-delay: 0.3s;">
+                Membangun Pengalaman Digital & <br class="hidden md:block"/>
+                <span class="text-gradient">Eksplorasi Teknologi AI</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-500 font-light max-w-2xl leading-relaxed mb-12">
-                Saya <strong>myproject</strong>. Seorang Desainer UI/UX yang mengubah ide menjadi antarmuka elegan, menulis baris kode di akhir pekan, dan mengadaptasi AI untuk alur kerja masa depan.
+            <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.5s;">
+                Desainer Grafis & Front-End Developer. Memadukan estetika visual dengan interaktivitas web modern, serta berbagi wawasan seputar tren AI dan teknologi terbaru.
             </p>
-            <div class="flex items-center space-x-6">
-                <a href="#tren-ai" class="px-8 py-4 bg-gray-900 text-white rounded-full hover:bg-ai-glow transition duration-300 font-medium flex items-center gap-2">
-                    <i class="fas fa-sparkles"></i> Eksplorasi Sekarang
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.7s;">
+                <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 bg-white text-primary font-semibold rounded-full hover:bg-gray-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    Lihat Karya
                 </a>
-<!-- ... existing code ... -->
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 glass-card text-white font-semibold rounded-full hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                    Mari Berdiskusi <i class="fas fa-arrow-right text-sm"></i>
+                </a>
             </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce flex flex-col items-center">
+            <span class="text-gray-500 text-xs uppercase tracking-widest mb-2">Scroll</span>
+            <div class="w-[1px] h-10 bg-gradient-to-b from-gray-500 to-transparent"></div>
         </div>
     </section>
 
-    <!-- Coding Projects / Vercel Section -->
-    <section id="lab-kode" class="py-24 px-6 md:px-12 bg-gray-950 text-gray-300 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
-                <div class="max-w-3xl">
-                    <h2 class="font-display text-4xl font-bold mb-4 text-white"><span class="text-accent">~/</span> Coding Vibe & Deployments</h2>
-                    <p class="text-gray-400 text-lg">
-                        Meskipun <i>passion</i> utama saya di ranah visual, saya suka mengotori tangan dengan <code class="font-mono text-sm bg-gray-800 px-2 py-1 rounded text-accent">HTML/CSS/JS</code>. Ini adalah <i>playground</i> tempat desain statis menjadi prototipe hidup, didukung oleh infrastruktur Vercel.
-                    </p>
-                </div>
-                <div class="mt-6 md:mt-0 flex flex-col items-end">
-                    <div class="flex items-center gap-2 text-gray-500 font-mono text-sm mb-2">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        Status: Online
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="reveal order-2 md:order-1 relative">
+                    <!-- Image container with decorative elements -->
+                    <div class="relative w-full aspect-square max-w-md mx-auto">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-secondary to-accent rounded-3xl transform rotate-6 opacity-50 blur-lg"></div>
+                        <img src="https://photos.app.goo.gl/2MQ2idHqLxccNHB66" alt="Aswaracca" class="relative z-10 w-full h-full object-cover rounded-3xl border border-gray-800 grayscale hover:grayscale-0 transition-all duration-500">
+                        
+                        <!-- Floating badges -->
+                        <div class="absolute -bottom-6 -right-6 glass-card p-4 rounded-2xl z-20 flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+                                <i class="fas fa-palette text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Pengalaman</p>
+                                <p class="font-bold">5+ Tahun</p>
+                            </div>
+                        </div>
                     </div>
-                    <i class="fas fa-terminal text-5xl text-gray-800"></i>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
-                <!-- Vercel Project 1 -->
-                <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-gray-600 transition group relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-<!-- ... existing code ... -->
-                    <div class="flex gap-2 mb-6 text-xs text-gray-400">
-                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">HTML5</span>
-                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Tailwind</span>
-                    </div>
-                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-accent transition">
-                        [Deploy on Vercel] <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- Vercel Project 2 -->
-                <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-gray-600 transition group relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div class="w-12 h-12 bg-gray-950 rounded border border-gray-800 flex items-center justify-center mb-6 text-gray-300 group-hover:text-white transition">
-                        <i class="fab fa-css3-alt text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3 text-white">CSS_Art_Lab</h3>
-                    <p class="text-gray-500 text-sm mb-6 line-clamp-3 font-sans">
-                        Kumpulan eksperimen CSS dasar untuk membuat interaksi tombol dan animasi sederhana tanpa banyak Javascript.
-                    </p>
-                    <div class="flex gap-2 mb-6 text-xs text-gray-400">
-                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">CSS3</span>
-                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Keyframes</span>
-                    </div>
-                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-accent transition">
-                        [Deploy on Vercel] <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- Vercel Project 3 -->
-                <div class="bg-gray-900 p-8 rounded-xl border border-gray-800 hover:border-gray-600 transition group relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div class="w-12 h-12 bg-gray-950 rounded border border-gray-800 flex items-center justify-center mb-6 text-gray-300 group-hover:text-white transition">
-                        <i class="fas fa-network-wired text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3 text-white">myproject_links</h3>
-                    <p class="text-gray-500 text-sm mb-6 line-clamp-3 font-sans">
-                        Halaman profil sederhana yang di-coding dari nol, dioptimasi kecepatannya dan terintegrasi CI/CD dari GitHub ke Vercel.
-                    </p>
-                    <div class="flex gap-2 mb-6 text-xs text-gray-400">
-                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Git</span>
-                        <span class="bg-gray-800 px-3 py-1 rounded-sm border border-gray-700">Vercel</span>
-                    </div>
-                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-accent transition">
-                        [Deploy on Vercel] <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Trend / Explorations Section -->
-    <section id="tren-ai" class="py-24 px-6 md:px-12 bg-[#0a0a0f] text-white relative overflow-hidden">
-        <!-- Dekorasi latar belakang (Efek AI Glow) -->
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-ai-glow/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="mb-16 text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-ai-glow text-sm font-medium mb-6">
-                    <i class="fas fa-robot"></i> Mengikuti Tren Era Baru
-                </div>
-                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Desain Diberdayakan oleh AI.</h2>
-                <p class="text-gray-400 text-lg">
-                    AI bukan untuk menggantikan kreativitas, melainkan untuk memperkuatnya. Saya secara aktif mengintegrasikan alat kecerdasan buatan dalam alur kerja untuk riset, ideasi visual, dan mempercepat proses iterasi desain.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- AI Feature 1 -->
-                <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition">
-                    <div class="text-ai-glow text-3xl mb-4"><i class="fas fa-brain"></i></div>
-                    <h3 class="text-xl font-bold mb-3 font-display">Prompt Engineering</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Menggunakan Midjourney dan DALL-E untuk menciptakan <i>moodboard</i> instan dan eksplorasi konsep visual abstrak sebelum memulai desain UI yang sebenarnya di Figma.
-                    </p>
                 </div>
                 
-                <!-- AI Feature 2 -->
-                <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition">
-                    <div class="text-ai-glow text-3xl mb-4"><i class="fas fa-bolt"></i></div>
-                    <h3 class="text-xl font-bold mb-3 font-display">Kopilot Kode & Naskah</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Memanfaatkan ChatGPT & Claude untuk menghasilkan <i>dummy copy</i> yang kontekstual (bukan sekadar Lorem Ipsum) dan membantu melakukan <i>troubleshooting</i> kode HTML/CSS saat mengembangkan proyek di Vercel.
+                <div class="reveal order-1 md:order-2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Tentang <span class="text-accent">Saya</span></h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Saya adalah seorang Desainer Grafis dan Front-End Developer yang berbasis di Indonesia. Saya memiliki gairah besar dalam merancang identitas visual yang kuat dan mewujudkannya menjadi antarmuka web yang interaktif.
                     </p>
-                </div>
-
-                <!-- AI Feature 3 -->
-                <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition lg:mt-8">
-                    <div class="text-ai-glow text-3xl mb-4"><i class="fas fa-layer-group"></i></div>
-                    <h3 class="text-xl font-bold mb-3 font-display">Integrasi AI di UI</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Mempelajari tren interaksi masa depan—bagaimana mendesain antarmuka untuk <i>chatbot</i>, pengalaman generatif, dan pola UX (User Experience) yang berpusat pada asisten pintar.
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Selain mengerjakan proyek-proyek desain dan pengembangan website, saya juga aktif mengeksplorasi dan membagikan informasi terkait perkembangan Artificial Intelligence (AI) terkini, karena saya percaya AI adalah kanvas baru bagi para kreator teknologi.
                     </p>
+                    
+                    <div class="space-y-4">
+                        <!-- Skill bars -->
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">Graphic Design & Branding</span>
+                                <span class="text-sm font-medium text-accent">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-secondary to-accent h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">Front-End Dev (HTML/Tailwind/JS)</span>
+                                <span class="text-sm font-medium text-accent">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-secondary to-accent h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">UI/UX Design</span>
+                                <span class="text-sm font-medium text-accent">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-secondary to-accent h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About & Skills Section -->
-    <section id="tentang" class="py-24 px-6 md:px-12 bg-stone-50">
-<!-- ... existing code ... -->
-                <div class="mb-8">
-                    <h4 class="text-sm uppercase tracking-widest text-gray-400 font-semibold mb-4">Hobi Web Development</h4>
-                    <div class="flex flex-wrap gap-3 font-mono text-sm">
-                        <span class="px-4 py-2 bg-gray-900 text-white rounded border border-gray-700 shadow-sm">&lt;HTML5/CSS3&gt;</span>
-                        <span class="px-4 py-2 bg-gray-900 text-white rounded border border-gray-700 shadow-sm">Tailwind</span>
-                        <span class="px-4 py-2 bg-gray-900 text-white rounded border border-gray-700 shadow-sm">JS_Basic()</span>
-                        <span class="px-4 py-2 bg-gray-900 text-accent rounded border border-gray-700 shadow-sm">▲ Vercel</span>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-gray-900/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <p class="text-secondary font-medium mb-2">Karya Terbaru</p>
+                <h2 class="text-3xl md:text-5xl font-bold">Portofolio <span class="text-gradient">Pilihan</span></h2>
+            </div>
+
+            <!-- Filter Buttons (Visual only for now) -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 reveal">
+                <button class="px-6 py-2 rounded-full bg-accent text-white text-sm font-medium">Semua</button>
+                <button class="px-6 py-2 rounded-full glass-card hover:bg-white/10 text-gray-300 text-sm font-medium transition-colors">Front-End</button>
+                <button class="px-6 py-2 rounded-full glass-card hover:bg-white/10 text-gray-300 text-sm font-medium transition-colors">Desain Grafis</button>
+                <button class="px-6 py-2 rounded-full glass-card hover:bg-white/10 text-gray-300 text-sm font-medium transition-colors">UI/UX</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-primary/40 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/800x600/1e293b/cbd5e1?text=Aplikasi+Fintech" alt="Project 1" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10">UI/UX</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">NeoPay Fintech App</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Perancangan ulang pengalaman pengguna aplikasi perbankan digital dengan fokus pada kemudahan transfer dan manajemen investasi.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-secondary hover:text-white transition-colors">
+                            Lihat Detail <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
                 </div>
 
+                <!-- Project 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card" style="transition-delay: 100ms;">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-primary/40 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/800x600/27272a/e4e4e7?text=Web+E-Commerce" alt="Project 2" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10">Web Design</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Lumina Fashion Store</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Desain landing page dan alur checkout untuk brand fashion lokal dengan gaya minimalis dan elegan.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-secondary hover:text-white transition-colors">
+                            Lihat Detail <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card" style="transition-delay: 200ms;">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-primary/40 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/800x600/312e81/e0e7ff?text=Identitas+Visual" alt="Project 3" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10">Branding</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Kopi Senja Identity</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Pembuatan logo, palet warna, dan aset grafis media sosial untuk kedai kopi modern.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-secondary hover:text-white transition-colors">
+                            Lihat Detail <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-primary/40 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/800x600/171717/d4d4d8?text=Dashboard+Admin" alt="Project 4" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10">UI/UX</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">SaaS Analytics Dashboard</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Desain antarmuka panel admin dengan visualisasi data kompleks yang diubah menjadi komponen yang mudah dibaca.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-secondary hover:text-white transition-colors">
+                            Lihat Detail <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card" style="transition-delay: 100ms;">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-primary/40 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
+                        <img src="https://placehold.co/800x600/0f172a/94a3b8?text=Aplikasi+Kesehatan" alt="Project 5" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 z-20">
+                            <span class="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-xs font-medium text-white border border-white/10">UI/UX</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">FitTrack Mobile</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Aplikasi pelacakan kebugaran dengan gamifikasi untuk memotivasi pengguna mencapai target kesehatan mereka.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-secondary hover:text-white transition-colors">
+                            Lihat Detail <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dribbble Promo -->
+                <div class="rounded-2xl overflow-hidden group reveal relative flex flex-col items-center justify-center p-8 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 border-dashed" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-full bg-[#ea4c89]/20 flex items-center justify-center text-[#ea4c89] mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fab fa-dribbble text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Lihat Lebih Banyak</h3>
+                    <p class="text-gray-400 text-sm mb-6 text-center">Temukan eksplorasi desain harian saya di Dribbble.</p>
+                    <a href="#" class="px-6 py-2 bg-[#ea4c89] hover:bg-[#d93b77] text-white rounded-full font-medium transition-colors shadow-lg shadow-[#ea4c89]/20">
+                        Kunjungi Dribbble
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Wawasan & AI Trend Section -->
+    <section id="wawasan" class="py-24 relative overflow-hidden">
+        <!-- Subtle border top separator -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
                 <div>
-                    <h4 class="text-sm uppercase tracking-widest text-gray-400 font-semibold mb-4 flex items-center gap-2">
-                        <i class="fas fa-sparkles text-ai-glow"></i> Eksplorasi AI
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-900 rounded-full font-medium shadow-sm">Midjourney (Ideation)</span>
-                        <span class="px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-900 rounded-full font-medium shadow-sm">ChatGPT / Claude</span>
-                        <span class="px-5 py-2 bg-indigo-50 border border-indigo-100 text-indigo-900 rounded-full font-medium shadow-sm">AI Prompting</span>
+                    <p class="text-secondary font-medium mb-2">Artikel & Berita</p>
+                    <h2 class="text-3xl md:text-5xl font-bold">Wawasan <span class="text-gradient">AI & Teknologi</span></h2>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center mt-4 md:mt-0 text-gray-400 hover:text-accent transition-colors">
+                    Lihat Semua Artikel <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://placehold.co/800x400/0f172a/3b82f6?text=Generative+AI" alt="AI Trend" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-secondary/20 text-secondary rounded-full">Tren AI</span>
+                            <span class="text-xs text-gray-500">24 Mei 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-tight">Masa Depan Desain Visual dengan Bantuan Generative AI</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Bagaimana alat kecerdasan buatan tidak menggantikan kreator, melainkan mempercepat alur kerja pembuatan aset dan eksplorasi ide visual secara masif.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
+                            Baca Selengkapnya
+                        </a>
                     </div>
                 </div>
+
+                <!-- Blog 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card hover:-translate-y-2 transition-all duration-300" style="transition-delay: 100ms;">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://placehold.co/800x400/1e293b/8b5cf6?text=Web+Development" alt="Web Dev" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-accent/20 text-accent rounded-full">Front-End</span>
+                            <span class="text-xs text-gray-500">18 Mei 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-tight">Membangun Animasi Interaktif Menggunakan Tailwind & JS</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Tutorial singkat untuk mengimplementasikan animasi masuk (reveal animation) dan kursor kustom pada antarmuka web tanpa membebani performa.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
+                            Baca Selengkapnya
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card hover:-translate-y-2 transition-all duration-300" style="transition-delay: 200ms;">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://placehold.co/800x400/27272a/10b981?text=Graphic+Design" alt="Design" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-green-500/20 text-green-400 rounded-full">Desain Grafis</span>
+                            <span class="text-xs text-gray-500">10 Mei 2026</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-tight">Psikologi Warna dalam Branding Produk Teknologi</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Memahami mengapa startup dan perusahaan teknologi cenderung bereksperimen dengan palet warna neon dan bagaimana menerapkannya.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
+                            Baca Selengkapnya
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile "View All" Button -->
+            <div class="mt-8 text-center md:hidden">
+                 <a href="#" class="inline-flex items-center text-gray-400 hover:text-accent transition-colors">
+                    Lihat Semua Artikel <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Contact / Footer -->
-<!-- ... existing code ... -->
-            <p class="text-xl text-gray-500 mb-10">Mencari desainer yang memahami batasan kode dan antusias dengan masa depan AI? Kotak masuk saya selalu terbuka.</p>
-            
-            <a href="mailto:email@anda.com" class="inline-block text-2xl md:text-4xl font-display font-bold border-b-4 border-accent pb-2 hover:text-accent transition duration-300 mb-16">
-                halo@myproject.com
-            </a>
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <!-- Abstract shape -->
+        <div class="absolute right-0 bottom-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10 translate-x-1/2 translate-y-1/2"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-3xl p-8 md:p-12 reveal">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Mari Berkolaborasi</h2>
+                    <p class="text-gray-400 text-lg">Punya proyek menarik? Jangan ragu untuk menyapa!</p>
+                </div>
 
-            <div class="flex justify-center space-x-8 text-gray-400 mb-16">
-<!-- ... existing code ... -->
-            <p class="text-sm text-gray-400 font-mono">
-                &copy; 2026 myproject. Didesain oleh manusia, di-code dengan Tailwind, di-host di Vercel.
-            </p>
+                <form class="space-y-6" onsubmit="event.preventDefault(); showMessage();">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Nama</label>
+                            <input type="text" id="name" class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" placeholder="Nama Anda" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                            <input type="email" id="email" class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" placeholder="email@contoh.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Pesan</label>
+                        <textarea id="message" rows="4" class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" placeholder="Ceritakan tentang proyek Anda..." required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-secondary to-accent text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity flex justify-center items-center gap-2 group">
+                        Kirim Pesan <i class="fas fa-paper-plane transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <span class="text-2xl font-bold tracking-tighter text-white">
+                    aswaracca<span class="text-accent">.</span>
+                </span>
+                <p class="text-gray-500 text-sm mt-2">Desain visual dan kode yang berpusat pada pengalaman manusia di era AI.</p>
+            </div>
+            
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white hover:-translate-y-1 transition-all">
+                    <i class="fab fa-dribbble text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white hover:-translate-y-1 transition-all">
+                    <i class="fab fa-behance text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white hover:-translate-y-1 transition-all">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white hover:-translate-y-1 transition-all">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-gray-800 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2026 Aswaracca. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Pesan Modal Kustom (Pengganti Alert) -->
+    <div id="message-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-gray-900 border border-gray-700 p-8 rounded-2xl shadow-2xl max-w-sm w-full transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="w-16 h-16 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-center text-white mb-2">Pesan Terkirim!</h3>
+            <p class="text-gray-400 text-center text-sm mb-6">Terima kasih telah menghubungi. Saya akan membalas pesan Anda secepatnya.</p>
+            <button onclick="closeMessage()" class="w-full py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.replace('py-4', 'py-0'); // Compact mode
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Custom Form Submit Message
+        function showMessage() {
+            const modal = document.getElementById('message-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+            // Reset form
+            document.querySelector('form').reset();
+        }
+
+        function closeMessage() {
+            const modal = document.getElementById('message-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        // Only run if not on touch device
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                // Move dot instantly
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                // Animate outline with slight delay using requestAnimationFrame for smoothness
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 100, fill: "forwards" });
+            });
+
+            // Hover effects for links and buttons
+            const interactables = document.querySelectorAll('a, button, .project-card, input, textarea');
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.style.width = '60px';
+                    cursorOutline.style.height = '60px';
+                    cursorOutline.style.backgroundColor = 'rgba(139, 92, 246, 0.1)';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.style.width = '40px';
+                    cursorOutline.style.height = '40px';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+        }
+
+        // Interactive Canvas Background (Constellation effect)
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        
+        // Mouse interaction for canvas
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        }
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+                this.color = `rgba(139, 92, 246, ${Math.random() * 0.5 + 0.1})`; // Accent color
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                // Interactive mouse repulsion
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    if (this.x !== this.baseX) {
+                        let dx = this.x - this.baseX;
+                        this.x -= dx / 20;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy = this.y - this.baseY;
+                        this.y -= dy / 20;
+                    }
+                }
+                
+                // Slow ambient drift
+                this.baseX += Math.sin(Date.now() * 0.001 + this.density) * 0.2;
+                this.baseY += Math.cos(Date.now() * 0.001 + this.density) * 0.2;
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            // Adjust particle count based on screen width
+            let numberOfParticles = (width * height) / 15000;
+            if(window.innerWidth < 768) numberOfParticles = numberOfParticles / 2; // Less particles on mobile
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+                        + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                    
+                    if (distance < (width/10) * (height/10)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${opacityValue * 0.2})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            connect();
+        }
+
+        // Initialize Canvas
+        window.addEventListener('resize', resize);
+        resize();
+        animate();
+        
+    </script>
 </body>
 </html>
