@@ -93,7 +93,8 @@
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
         }
 
         .reveal.active {
@@ -133,6 +134,33 @@
                 cursor: none;
             }
         }
+
+        .marquee-track {
+            animation: marqueeScroll 25s linear infinite;
+        }
+        @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .tool-card {
+            width: 140px;
+        }
+
+        a, button, .glass-card, .filter-btn {
+            transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        img {
+            transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 
@@ -157,7 +185,6 @@
                         <a href="#about" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Tentang</a>
                         <a href="#portfolio" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Karya</a>
                         <a href="#tools" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Tools</a>
-                        <a href="#wawasan" class="text-gray-300 hover:text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Insight Desain</a>
                         <a href="#contact" class="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-accent/30">Hubungi Saya</a>
                     </div>
                 </div>
@@ -176,7 +203,6 @@
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Tentang</a>
                 <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Karya</a>
                 <a href="#tools" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Tools</a>
-                <a href="#wawasan" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Insight Desain</a>
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-accent hover:text-white hover:bg-gray-800">Hubungi Saya</a>
             </div>
         </div>
@@ -289,7 +315,7 @@
                 <p class="text-gray-400 mt-4 max-w-xl mx-auto">Tools yang saya gunakan setiap hari untuk mewujudkan ide menjadi karya visual.</p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div class="flex flex-wrap justify-center gap-6">
 
                 <!-- Tool: Photoshop -->
                 <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center reveal tool-card" data-level="95">
@@ -317,20 +343,6 @@
                     </div>
                     <p class="font-semibold text-sm">Illustrator</p>
                     <p class="text-xs text-gray-500 mt-1">92%</p>
-                </div>
-
-                <!-- Tool: CorelDRAW -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center reveal tool-card" style="transition-delay: 120ms;" data-level="88">
-                    <div class="relative w-20 h-20 mb-4">
-                        <svg class="w-20 h-20 tool-ring" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
-                            <circle cx="50" cy="50" r="42" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round"
-                                stroke-dasharray="264" stroke-dashoffset="264" class="ring-progress" data-level="88"/>
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center text-2xl font-bold text-green-400">Cd</div>
-                    </div>
-                    <p class="font-semibold text-sm">CorelDRAW</p>
-                    <p class="text-xs text-gray-500 mt-1">88%</p>
                 </div>
 
                 <!-- Tool: Figma -->
@@ -361,22 +373,23 @@
                     <p class="text-xs text-gray-500 mt-1">90%</p>
                 </div>
 
-                <!-- Tool: Lightroom -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center reveal tool-card" style="transition-delay: 300ms;" data-level="80">
+                <!-- Tool: Inkscape -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center reveal tool-card" style="transition-delay: 300ms;" data-level="87">
                     <div class="relative w-20 h-20 mb-4">
                         <svg class="w-20 h-20 tool-ring" viewBox="0 0 100 100">
                             <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
-                            <circle cx="50" cy="50" r="42" fill="none" stroke="#ec4899" stroke-width="8" stroke-linecap="round"
-                                stroke-dasharray="264" stroke-dashoffset="264" class="ring-progress" data-level="80"/>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#eab308" stroke-width="8" stroke-linecap="round"
+                                stroke-dasharray="264" stroke-dashoffset="264" class="ring-progress" data-level="87"/>
                         </svg>
-                        <div class="absolute inset-0 flex items-center justify-center text-2xl font-bold text-pink-400">Lr</div>
+                        <div class="absolute inset-0 flex items-center justify-center text-2xl font-bold text-yellow-400">Ik</div>
                     </div>
-                    <p class="font-semibold text-sm">Lightroom</p>
-                    <p class="text-xs text-gray-500 mt-1">80%</p>
+                    <p class="font-semibold text-sm">Inkscape</p>
+                    <p class="text-xs text-gray-500 mt-1">87%</p>
                 </div>
 
             </div>
         </div>
+    </section>
 
     <section id="portfolio" class="py-24 bg-gray-900/50 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -544,6 +557,99 @@
         </div>
     </section>
 
+    <!-- AI Image Generate Portfolio Section -->
+    <section id="ai-portfolio" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <p class="text-secondary font-medium mb-2">Eksplorasi AI</p>
+                <h2 class="text-3xl md:text-5xl font-bold">AI Image Generate <span class="text-gradient">Portfolio</span></h2>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Kumpulan hasil desain dan ilustrasi yang dibuat menggunakan AI image generator sebagai bagian dari proses eksplorasi visual.</p>
+            </div>
+
+            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer ai-gallery-item break-inside-avoid" data-img="image/ai/ai1.png" data-title="AI Generate 1" data-desc="Hasil eksplorasi visual menggunakan AI image generator."> <!-- GANTI gambar & teks -->
+                    <div class="relative overflow-hidden">
+                        <img src="image/ai/ai1.png" alt="AI Generate 1" class="w-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-xs font-semibold text-accent mb-1">AI Generated</span>
+                            <h3 class="text-lg font-bold text-white">AI Generate 1</h3>
+                        </div>
+                        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer ai-gallery-item break-inside-avoid" style="transition-delay: 60ms;" data-img="image/ai/ai2.png" data-title="AI Generate 2" data-desc="Hasil eksplorasi visual menggunakan AI image generator."> <!-- GANTI gambar & teks -->
+                    <div class="relative overflow-hidden">
+                        <img src="image/ai/ai2.png" alt="AI Generate 2" class="w-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-xs font-semibold text-accent mb-1">AI Generated</span>
+                            <h3 class="text-lg font-bold text-white">AI Generate 2</h3>
+                        </div>
+                        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer ai-gallery-item break-inside-avoid" style="transition-delay: 120ms;" data-img="image/ai/ai3.png" data-title="AI Generate 3" data-desc="Hasil eksplorasi visual menggunakan AI image generator."> <!-- GANTI gambar & teks -->
+                    <div class="relative overflow-hidden">
+                        <img src="image/ai/ai3.png" alt="AI Generate 3" class="w-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-xs font-semibold text-accent mb-1">AI Generated</span>
+                            <h3 class="text-lg font-bold text-white">AI Generate 3</h3>
+                        </div>
+                        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer ai-gallery-item break-inside-avoid" style="transition-delay: 180ms;" data-img="image/ai/ai4.png" data-title="AI Generate 4" data-desc="Hasil eksplorasi visual menggunakan AI image generator."> <!-- GANTI gambar & teks -->
+                    <div class="relative overflow-hidden">
+                        <img src="image/ai/ai4.png" alt="AI Generate 4" class="w-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-xs font-semibold text-accent mb-1">AI Generated</span>
+                            <h3 class="text-lg font-bold text-white">AI Generate 4</h3>
+                        </div>
+                        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer ai-gallery-item break-inside-avoid" style="transition-delay: 240ms;" data-img="image/ai/ai5.png" data-title="AI Generate 5" data-desc="Hasil eksplorasi visual menggunakan AI image generator."> <!-- GANTI gambar & teks -->
+                    <div class="relative overflow-hidden">
+                        <img src="image/ai/ai5.png" alt="AI Generate 5" class="w-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-xs font-semibold text-accent mb-1">AI Generated</span>
+                            <h3 class="text-lg font-bold text-white">AI Generate 5</h3>
+                        </div>
+                        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer ai-gallery-item break-inside-avoid" style="transition-delay: 300ms;" data-img="image/ai/ai6.png" data-title="AI Generate 6" data-desc="Hasil eksplorasi visual menggunakan AI image generator."> <!-- GANTI gambar & teks -->
+                    <div class="relative overflow-hidden">
+                        <img src="image/ai/ai6.png" alt="AI Generate 6" class="w-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-xs font-semibold text-accent mb-1">AI Generated</span>
+                            <h3 class="text-lg font-bold text-white">AI Generate 6</h3>
+                        </div>
+                        <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-expand text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Lightbox -->
     <div id="lightbox" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/85 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
         <button id="lightbox-close" class="absolute top-6 right-6 w-11 h-11 rounded-full glass-card flex items-center justify-center text-white hover:bg-white/10 transition-colors">
@@ -560,84 +666,130 @@
         </div>
     </div>
 
-    <!-- Insight Desain Section -->
-    <section id="wawasan" class="py-24 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
-        
+    <!-- Portofolio Lain: Social Media & Microstock -->
+   <!--  <section id="portofolio-lain" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
-                <div>
-                    <p class="text-secondary font-medium mb-2">Artikel & Catatan</p>
-                    <h2 class="text-3xl md:text-5xl font-bold">Insight <span class="text-gradient">Desain Grafis</span></h2>
-                </div>
-                <a href="#" class="hidden md:inline-flex items-center mt-4 md:mt-0 text-gray-400 hover:text-accent transition-colors">
-                    Lihat Semua Artikel <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1"></i>
+            <div class="text-center mb-12 reveal">
+                <p class="text-secondary font-medium mb-2">Portofolio Lain</p>
+                <h2 class="text-3xl md:text-5xl font-bold">Temukan Saya di <span class="text-gradient">Platform Lain</span></h2>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Selain di sini, karya saya juga bisa dilihat melalui akun sosial media dan akun microstock berikut.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                
+                <a href="https://instagram.com/ganera.std" target="_blank" rel="noopener" class="glass-card rounded-2xl p-8 flex items-center gap-5 reveal group">
+                   
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 via-purple-500 to-orange-400 flex items-center justify-center text-white text-2xl flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Sosial Media</p>
+                        <h3 class="text-lg font-bold text-white group-hover:text-accent transition-colors">Instagram</h3>
+                        <p class="text-sm text-gray-400">@ganera.std</p>
+                    </div>
+                    <i class="fas fa-arrow-up-right-from-square text-gray-500 group-hover:text-accent transition-colors"></i>
                 </a>
+
+               
+                <a href="https://www.freepik.com/author/username_anda" target="_blank" rel="noopener" class="glass-card rounded-2xl p-8 flex items-center gap-5 reveal group" style="transition-delay: 100ms;">
+                    
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white text-2xl flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Microstock</p>
+                        <h3 class="text-lg font-bold text-white group-hover:text-accent transition-colors">Freepik</h3>
+                        <p class="text-sm text-gray-400">Lihat koleksi aset desain saya</p>
+                    </div>
+                    <i class="fas fa-arrow-up-right-from-square text-gray-500 group-hover:text-accent transition-colors"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+ -->
+    <!-- Portofolio Non-Desain: Aplikasi & Tools yang Dikembangkan -->
+    <section id="portofolio-aplikasi" class="py-24 bg-gray-900/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <p class="text-secondary font-medium mb-2">Selain Desain</p>
+                <h2 class="text-3xl md:text-5xl font-bold">Portofolio <span class="text-gradient">Aplikasi & Web</span></h2>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Beberapa aplikasi dan website yang saya kembangkan sebagai web/app developer.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog 1 -->
-                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card hover:-translate-y-2 transition-all duration-300">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://placehold.co/800x400/0f172a/3b82f6?text=Branding" alt="Branding" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-secondary/20 text-secondary rounded-full">Branding</span>
-                            <span class="text-xs text-gray-500">24 Mei 2026</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-tight">Membangun Identitas Visual yang Konsisten untuk UMKM</h3>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Langkah-langkah praktis merancang logo, palet warna, dan pedoman visual agar brand kecil tampil profesional.</p>
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
-                            Baca Selengkapnya
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Blog 2 -->
-                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card hover:-translate-y-2 transition-all duration-300" style="transition-delay: 100ms;">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://placehold.co/800x400/1e293b/8b5cf6?text=Tipografi" alt="Tipografi" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
+                <!-- App Card 1 -->
+                <a href="#" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 reveal group block"> <!-- GANTI link aplikasi -->
+                    <div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary mb-4">
+                        <i class="fas fa-shop text-xl"></i>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-accent/20 text-accent rounded-full">Tipografi</span>
-                            <span class="text-xs text-gray-500">18 Mei 2026</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-tight">Memilih Font yang Tepat untuk Karakter Brand</h3>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Bagaimana pemilihan tipografi mempengaruhi persepsi audiens terhadap sebuah brand atau produk.</p>
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
-                            Baca Selengkapnya
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Blog 3 -->
-                <div class="glass-card rounded-2xl overflow-hidden group reveal relative cursor-pointer project-card hover:-translate-y-2 transition-all duration-300" style="transition-delay: 200ms;">
-                    <div class="h-48 overflow-hidden relative">
-                        <img src="https://placehold.co/800x400/27272a/10b981?text=Warna" alt="Warna" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-300"></div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-green-500/20 text-green-400 rounded-full">Desain Grafis</span>
-                            <span class="text-xs text-gray-500">10 Mei 2026</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors leading-tight">Psikologi Warna dalam Branding Produk</h3>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">Memahami mengapa palet warna tertentu lebih efektif untuk industri tertentu dan bagaimana menerapkannya.</p>
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
-                            Baca Selengkapnya
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center md:hidden">
-                 <a href="#" class="inline-flex items-center text-gray-400 hover:text-accent transition-colors">
-                    Lihat Semua Artikel <i class="fas fa-arrow-right ml-2"></i>
+                    <h3 class="text-lg font-bold mb-2 group-hover:text-accent transition-colors">TitipKu</h3>
+                    <p class="text-gray-400 text-sm mb-4">Aplikasi konsinyasi & POS berbasis Google Sheets dengan multi-user dan PWA.</p>
+                    <span class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
+                        Lihat Aplikasi <i class="fas fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                    </span>
                 </a>
+
+                <!-- App Card 2 -->
+                <a href="#" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 reveal group block" style="transition-delay: 100ms;"> <!-- GANTI link aplikasi -->
+                    <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent mb-4">
+                        <i class="fas fa-box-archive text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 group-hover:text-accent transition-colors">Expiry Tracker</h3>
+                    <p class="text-gray-400 text-sm mb-4">PWA mobile-first untuk melacak tanggal kedaluwarsa barang dengan desain glassmorphism.</p>
+                    <span class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
+                        Lihat Aplikasi <i class="fas fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                    </span>
+                </a>
+
+                <!-- App Card 3 -->
+                <a href="#" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 reveal group block" style="transition-delay: 200ms;"> <!-- GANTI link aplikasi -->
+                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400 mb-4">
+                        <i class="fas fa-mosque text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 group-hover:text-accent transition-colors">Web Masjid Jami Baitul Makmur</h3>
+                    <p class="text-gray-400 text-sm mb-4">Website masjid dengan jadwal sholat real-time via API Kemenag.</p>
+                    <span class="inline-flex items-center text-sm font-medium text-white group-hover:text-secondary transition-colors">
+                        Lihat Website <i class="fas fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                    </span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Klien / Kerja Sama Marquee Section -->
+    <section id="klien" class="py-16 relative overflow-hidden border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10 reveal">
+            <p class="text-secondary font-medium mb-2">Dipercaya Oleh</p>
+            <h2 class="text-2xl md:text-3xl font-bold">Klien yang Pernah <span class="text-gradient">Bekerja Sama dengan Kami</span></h2>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative w-full overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-16 md:w-32 bg-gradient-to-r from-primary to-transparent z-10"></div>
+                <div class="absolute right-0 top-0 h-full w-16 md:w-32 bg-gradient-to-l from-primary to-transparent z-10"></div>
+
+                <div class="flex w-max marquee-track justify-center">
+                    <!-- Set 1 -->
+                    <div class="flex items-center justify-center gap-12 px-6 w-max">
+                        <img src="image/klien/klien1.png" alt="Klien 1" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien2.png" alt="Klien 2" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien3.png" alt="Klien 3" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien4.png" alt="Klien 4" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien5.png" alt="Klien 5" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien6.png" alt="Klien 6" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                    </div>
+                    <!-- Set 2 (duplikat agar loop mulus) -->
+                    <div class="flex items-center justify-center gap-12 px-6 w-max">
+                        <img src="image/klien/klien1.png" alt="Klien 1" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien2.png" alt="Klien 2" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien3.png" alt="Klien 3" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien4.png" alt="Klien 4" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien5.png" alt="Klien 5" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                        <img src="image/klien/klien6.png" alt="Klien 6" class="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"> <!-- GANTI -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -835,6 +987,18 @@
         });
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
+        });
+
+        // AI Image Generate Portfolio - lightbox
+        const aiGalleryItems = document.querySelectorAll('.ai-gallery-item');
+        aiGalleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                lightboxImg.src = item.getAttribute('data-img');
+                lightboxTitle.textContent = item.getAttribute('data-title');
+                lightboxDesc.textContent = item.getAttribute('data-desc');
+                lightbox.classList.remove('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'hidden';
+            });
         });
 
         // Custom Cursor Logic
